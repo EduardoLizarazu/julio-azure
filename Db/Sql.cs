@@ -1,5 +1,3 @@
-
-
 namespace Db;
 
 using Microsoft.Data.SqlClient;
