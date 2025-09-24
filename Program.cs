@@ -36,6 +36,9 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+// Map endpoints from our 2 CRUD modules
+Address.AddressEndpoints.Map(app);
+
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
