@@ -9,6 +9,9 @@ builder.Services.AddOpenApi();
 // Connection strings
 var connStr = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
+// console log to verify
+Console.WriteLine($"Using connection string: {connStr}");
+
 // Make it available via DI
 builder.Services.AddSingleton(new Db.Sql(connStr));
 
