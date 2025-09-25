@@ -8,7 +8,7 @@ on:
 env:
   WEBAPP_NAME: "progaaplicada"
   DOTNET_VERSION: "9.0.x"
-  PROJECT_PATH: "webapijulio/WebApi.csproj" # 👈 path to your API .csproj
+  PROJECT_PATH: "webapijulio.csproj" # 👈 path to your API .csproj
   PUBLISH_DIR: "./publish"
 
 jobs:
