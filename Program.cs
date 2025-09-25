@@ -30,6 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+app.MapGet("/_health", () => Results.Ok(new { ok = true, time = DateTime.UtcNow }));
 
 // Map endpoints from our 2 CRUD modules
 Address.AddressEndpoints.Map(app);

@@ -8,7 +8,7 @@ on:
 env:
   WEBAPP_NAME: "progaaplicada"
   DOTNET_VERSION: "9.0.x"
-  PROJECT_PATH: "." # cambia si tu .csproj está en subcarpeta
+  PROJECT_PATH: "webapijulio/WebApi.csproj" # 👈 path to your API .csproj
   PUBLISH_DIR: "./publish"
 
 jobs:
@@ -24,20 +24,22 @@ jobs:
       - name: Restore
         run: dotnet restore ${{ env.PROJECT_PATH }}
 
-      - name: Build (Release)
+      - name: Build
         run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
 
       - name: Publish
         run: dotnet publish ${{ env.PROJECT_PATH }} -c Release -o ${{ env.PUBLISH_DIR }}
 
-      - name: Show publish contents (debug)
+      - name: Create zip
         run: |
-          echo "Published files:"
-          ls -la ${{ env.PUBLISH_DIR }}
+          cd ${{ env.PUBLISH_DIR }}
+          zip -r ../app.zip .
+          cd ..
+          ls -la app.zip
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.PUBLISH_DIR }} # << deploy JUST the published output
+          package: app.zip
